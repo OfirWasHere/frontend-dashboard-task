@@ -1,9 +1,10 @@
 import React from "react";
-import { useOutlet } from "react-router";
+import { Outlet, useOutlet } from "react-router";
+import AuthPage from "../AuthPage/AuthPage";
 
 function Root() {
   const outlet = useOutlet();
-  return outlet;
+  return outlet ? <Outlet /> : <AuthPage />;
 }
 
 export default Root;
