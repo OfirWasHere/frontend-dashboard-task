@@ -1,7 +1,9 @@
 import React from "react";
+import { useOutlet } from "react-router";
 
 function Root() {
-  return <div>Root</div>;
+  const outlet = useOutlet();
+  return outlet;
 }
 
 export default Root;
