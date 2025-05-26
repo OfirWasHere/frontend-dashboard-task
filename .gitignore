@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+# never share this file
+.env
+
 # testing
 /coverage
 
