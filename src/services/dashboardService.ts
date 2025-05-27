@@ -2,6 +2,7 @@ import { VisitDataModal } from "../utils/types";
 
 const API = "http://127.0.0.1:5001/fullstack-home-task/us-central1/"
 
+// GET
 export const fetchAllVisits = async () => {
     try {
         const result = await fetch(API + 'getAllVisits', {
@@ -16,21 +17,48 @@ export const fetchAllVisits = async () => {
         console.error('Error calling Firebase function:', error);
     }
 }
-export const addVisit = async (payload: VisitDataModal) => {
+
+// POST 
+export const addVisits = async (payload: VisitDataModal) => {
+    console.log(payload);
+
     try {
-        const result = await fetch(API + 'addVisit', {
+        await fetch(API + 'addVisits', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ payload }),
         });
-        console.log(result);
-
     } catch (error) {
         console.error('Error calling Firebase function:', error);
     }
 }
-export const removeDataFromFireStore = async (data: any) => { }
-export const editDataFromFireStore = async (data: any) => { }
-export const DeleteDataFromFireStore = async (data: any) => { }
+// DELETE
+export const deleteVisits = async (id: string) => {
+    try {
+        await fetch(API + 'removeVisits', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id }),
+        });
+    } catch (error) {
+        console.error('Error calling Firebase function:', error);
+    }
+}
+// PUT 
+export const editVisits = async (payload: VisitDataModal) => {
+    try {
+        await fetch(API + 'removeVisits', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id }),
+        });
+    } catch (error) {
+        console.error('Error calling Firebase function:', error);
+    }
+}

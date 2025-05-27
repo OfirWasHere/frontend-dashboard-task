@@ -20,6 +20,7 @@ export type LoginServiceModal = {
 }
 
 export type VisitDataModal = {
+    id?: string;
     date: string;
     visits: number;
 }
