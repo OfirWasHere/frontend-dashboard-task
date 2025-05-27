@@ -51,12 +51,12 @@ export const deleteVisits = async (id: string) => {
 // PUT 
 export const editVisits = async (payload: VisitDataModal) => {
     try {
-        await fetch(API + 'removeVisits', {
-            method: 'DELETE',
+        await fetch(API + 'editVisits', {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ id }),
+            body: JSON.stringify({ payload }),
         });
     } catch (error) {
         console.error('Error calling Firebase function:', error);

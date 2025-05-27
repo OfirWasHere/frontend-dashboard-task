@@ -33,7 +33,7 @@ function Dashboard() {
       </Button>
       <Button
         variant="contained"
-        onClick={() => deleteVisits("QIePoFUynYXprv6YqTZV")}
+        onClick={() => deleteVisits("D9AADJBq7OUv7KUovxY6")}
       >
         remove date from db
       </Button>
@@ -41,8 +41,8 @@ function Dashboard() {
         variant="contained"
         onClick={() =>
           editVisits({
-            id: "",
-            visits: 200,
+            id: "u9dyP8xivWnUSvviWHeK",
+            visits: 40,
             date: currentDay.toISOString().split("T")[0],
           })
         }

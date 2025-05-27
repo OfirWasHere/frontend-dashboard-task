@@ -21,6 +21,6 @@ export type LoginServiceModal = {
 
 export type VisitDataModal = {
     id?: string;
-    date: string;
-    visits: number;
+    date?: string;
+    visits?: number;
 }
