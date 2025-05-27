@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
-import { fetchAllVisits } from "../../services/DataService";
+import { deleteVisits, fetchAllVisits } from "../../services/DataService";
 import AppTable from "../../components/common/AppTable";
 import { VisitDataModal } from "../../utils/types";
 
@@ -17,6 +17,14 @@ function DashboardV2() {
     fetchData();
   }, []);
 
+  const handleDeleteClick = (id: string) => {
+    deleteVisits(id);
+    const updatedVisitsArr = visits.filter((item) => {
+      return item.id !== id;
+    });
+    setVisits(updatedVisitsArr);
+  };
+
   return (
     <div>
       <Box
@@ -27,7 +35,10 @@ function DashboardV2() {
           padding: "20px",
         }}
       >
-        <AppTable tableDataRows={visits} />
+        <AppTable
+          tableDataRows={visits}
+          handleDeleteClick={handleDeleteClick}
+        />
       </Box>
     </div>
   );

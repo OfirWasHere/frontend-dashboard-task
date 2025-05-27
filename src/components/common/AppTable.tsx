@@ -10,43 +10,14 @@ import {
   Typography,
 } from "@mui/material";
 import { VisitDataModal } from "../../utils/types";
-import { useState } from "react";
-
-type EnhancedTableHeadProps = {
-  onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
-};
-
-function EnhancedTableHead({ onSelectAllClick }: EnhancedTableHeadProps) {
-  return (
-    <TableHead color="primary">
-      <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
-        <TableCell align="center" padding="checkbox">
-          {/* <Checkbox onChange={onSelectAllClick} /> */}
-        </TableCell>
-        <TableCell align="right">ID</TableCell>
-        <TableCell align="right">Visits</TableCell>
-        <TableCell align="right">Date</TableCell>
-      </TableRow>
-    </TableHead>
-  );
-}
+import { Delete } from "@mui/icons-material";
 
 type AppTableProps = {
   tableDataRows: VisitDataModal[] | null;
+  handleDeleteClick: (id: string) => void;
 };
 
-function AppTable({ tableDataRows }: AppTableProps) {
-  const [selected, setSelected] = useState<number[]>([]);
-
-  const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      // const newSelected = rows.map((n) => n.id);
-      // setSelected(newSelected);
-      return;
-    }
-    setSelected([]);
-  };
-
+function AppTable({ tableDataRows, handleDeleteClick }: AppTableProps) {
   return (
     <div>
       <Box>
@@ -55,13 +26,25 @@ function AppTable({ tableDataRows }: AppTableProps) {
         </Typography>
         <TableContainer>
           <Table sx={{ minWidth: 650 }}>
-            <EnhancedTableHead onSelectAllClick={handleSelectAllClick} />
+            <TableHead color="primary">
+              <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
+                <TableCell
+                  align="center"
+                  padding="checkbox"
+                >
+                  Delete
+                </TableCell>
+                <TableCell align="right">ID</TableCell>
+                <TableCell align="right">Visits</TableCell>
+                <TableCell align="right">Date</TableCell>
+              </TableRow>
+            </TableHead>
             <TableBody>
               {tableDataRows && tableDataRows.length > 0 ? (
                 tableDataRows.map((row, index) => (
                   <TableRow key={index} hover>
                     <TableCell align="right">
-                      {/* <Checkbox onSelect={()=> {setSelected}}/> */}
+                      <Delete sx={{ cursor: "pointer" }} onClick={() => handleDeleteClick(row.id)} />
                     </TableCell>
                     <TableCell align="right">{index}</TableCell>
                     <TableCell align="right">{row.visits}</TableCell>
