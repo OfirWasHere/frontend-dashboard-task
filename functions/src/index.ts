@@ -1,6 +1,7 @@
-import { onRequest } from "firebase-functions/v2/https";
+import AppConfig from "./config/app-config";
 import { Visit } from "./utils/types";
-import AppConfig from "./utils/app-config";
+import { onRequest } from "firebase-functions/https";
+
 const { initializeApp } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 
@@ -36,6 +37,7 @@ export const addVisits = onRequest(async (request, response) => {
     }
 });
 
+// DELETE
 export const removeVisits = onRequest(async (request, response) => {
     try {
         const payload: string = request.body.id;
@@ -46,14 +48,16 @@ export const removeVisits = onRequest(async (request, response) => {
         await db.collection(AppConfig.databaseName).doc(payload).delete()
         response.status(200).send("Visit deleted successfully");
     } catch (error) {
-
+        console.error(error);
+        response.status(500).send("Error deleting data");
     }
 })
 
+// PUT
 export const editVisits = onRequest(async (request, response) => {
     try {
         const payload: Visit = request.body.payload;
-        
+
         if (!payload) {
             response.status(400).send("Missing details");
             return;
@@ -61,6 +65,7 @@ export const editVisits = onRequest(async (request, response) => {
         await db.collection(AppConfig.databaseName).doc(payload.id).update({ date: payload.date, visits: payload.visits });
         response.status(200).send("Visit updated successfully");
     } catch (error) {
-
+        console.error(error);
+        response.status(500).send("Error updating data");
     }
 })
