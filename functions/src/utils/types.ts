@@ -3,8 +3,3 @@ export type Visit = {
     visits: number;
     data: () => {}
 }
-
-export type VisitData = {
-    date: string;
-    visits: number;
-}
