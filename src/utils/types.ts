@@ -18,3 +18,9 @@ export type LoginServiceModal = {
     email: string;
     password: string;
 }
+
+export type VisitDataModal = {
+    id?: string;
+    date?: string;
+    visits?: number;
+}

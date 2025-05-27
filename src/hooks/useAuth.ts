@@ -84,11 +84,11 @@ export default function useAuth() {
         return () => unsubscribe();
     }, [firebaseAuth, location, user, navigate]);
 
-    // useEffect(() => {
-    //     if (authChecked && user && location.pathname === '/') {
-    //         navigate('/dashboard');
-    //     }
-    // }, [authChecked, user, location, navigate]);
+    useEffect(() => {
+        if (authChecked && user && location.pathname === '/') {
+            navigate('/dashboard');
+        }
+    }, [authChecked, user, location, navigate]);
 
     return { loader, user, authChecked, firebaseLogin, firebaseLogout, firebaseSignUp, firebaseGoogleAuthLogin };
 }
