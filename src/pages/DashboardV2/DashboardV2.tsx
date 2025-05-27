@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { deleteVisits, fetchAllVisits } from "../../services/DataService";
 import AppTable from "../../components/common/AppTable";
@@ -25,20 +25,26 @@ function DashboardV2() {
     setVisits(updatedVisitsArr);
   };
 
+  const handleEditClickSave = (id: string) => {};
+
   return (
     <div>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "20px",
-        }}
-      >
-        <AppTable
-          tableDataRows={visits}
-          handleDeleteClick={handleDeleteClick}
-        />
+      <Box m={4}>
+        <Typography variant="h3">Analytics Dashboard</Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "20px",
+          }}
+        >
+          <AppTable
+            tableDataRows={visits}
+            handleDeleteClick={handleDeleteClick}
+            handleEditClickSave={handleEditClickSave}
+          />
+        </Box>
       </Box>
     </div>
   );
