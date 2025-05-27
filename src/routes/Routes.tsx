@@ -1,9 +1,9 @@
 import PageNotFound from "../pages/PageNotFound/PageNotFound";
 import Root from "../pages/Root/Root";
 import GuardedRoute from "../wrappers/GuardedRoute/GuardedRoute";
-import Dashboard from "../pages/Dashboard/Dashboard";
 import AuthPage from "../pages/AuthPage/AuthPage";
 import { RoutesModel } from "../utils/types";
+import DashboardV2 from "../pages/DashboardV2/DashboardV2";
 
 const Routes: RoutesModel[] = [
   {
@@ -19,7 +19,7 @@ const Routes: RoutesModel[] = [
         path: "/dashboard",
         element: (
           <GuardedRoute>
-            <Dashboard />
+            <DashboardV2 />
           </GuardedRoute>
         ),
       },

@@ -3,7 +3,7 @@ import { VisitDataModal } from "../utils/types";
 const API = "http://127.0.0.1:5001/fullstack-home-task/us-central1/"
 
 // GET
-export const fetchAllVisits = async () => {
+async function fetchAllVisits(): Promise<VisitDataModal[]> {
     try {
         const result = await fetch(API + 'getAllVisits', {
             method: 'GET',
@@ -12,14 +12,14 @@ export const fetchAllVisits = async () => {
             },
         });
         const data = await result.json();
-        console.log(data);
+        return data;
     } catch (error) {
         console.error('Error calling Firebase function:', error);
     }
 }
 
 // POST 
-export const addVisits = async (payload: VisitDataModal) => {
+async function addVisits(payload: VisitDataModal) {
     console.log(payload);
 
     try {
@@ -36,7 +36,7 @@ export const addVisits = async (payload: VisitDataModal) => {
     }
 }
 // DELETE
-export const deleteVisits = async (id: string) => {
+async function deleteVisits(id: string) {
     try {
         await fetch(API + 'removeVisits', {
             method: 'DELETE',
@@ -50,7 +50,7 @@ export const deleteVisits = async (id: string) => {
     }
 }
 // PUT 
-export const editVisits = async (payload: VisitDataModal) => {
+async function editVisits(payload: VisitDataModal) {
     try {
         await fetch(API + 'editVisits', {
             method: 'PUT',
@@ -63,3 +63,5 @@ export const editVisits = async (payload: VisitDataModal) => {
         console.error('Error calling Firebase function:', error);
     }
 }
+
+export { fetchAllVisits, addVisits, deleteVisits, editVisits };
