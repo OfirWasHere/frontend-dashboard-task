@@ -1,22 +1,19 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * import {onCall} from "firebase-functions/v2/https";
- * import {onDocumentWritten} from "firebase-functions/v2/firestore";
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
-
-// Start writing functions
-// https://firebase.google.com/docs/functions/typescript
-
 import { onRequest } from "firebase-functions/v2/https";
-import * as logger from "firebase-functions/logger";
+import { Visit } from "./utils/types";
+import AppConfig from "./utils/app-config";
+const { initializeApp } = require('firebase-admin/app');
+const { getFirestore } = require('firebase-admin/firestore');
 
-const admin = require('firebase-admin');
-admin.initializeApp();
+initializeApp();
+const db = getFirestore();
 
-export const getAllVisits = onRequest((request, response) => {
-    logger.info("Hello logs!", { structuredData: true });
-    response.send("Hello from Firebase!");
+export const getAllVisits = onRequest(async (request, response) => {
+    try {
+        const fetched = await db.collection(AppConfig.databaseName).get();
+        const data = fetched.docs.map((e: Visit) => ({ ...e.data() }));
+        response.json(data[0]);
+    } catch (error) {
+        console.error("Error fetching documents:", error);
+        response.status(500).send("Error fetching data");
+    }
 });

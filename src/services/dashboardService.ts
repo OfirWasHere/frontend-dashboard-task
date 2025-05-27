@@ -1,7 +1,7 @@
 
 export const GetAllDataFromFireStore = async (data: any) => {
     try {
-        const result = await fetch(' http://127.0.0.1:5001/fullstack-home-task/us-central1/getAllVisits', {
+        const result = await fetch('http://127.0.0.1:5001/fullstack-home-task/us-central1/getAllVisits', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
