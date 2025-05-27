@@ -9,9 +9,10 @@ import {
   TableRow,
   TextField,
   Typography,
+  IconButton,
 } from "@mui/material";
 import { VisitDataModal } from "../../utils/types";
-import { Delete } from "@mui/icons-material";
+import { Cancel, Delete, Save } from "@mui/icons-material";
 import { useState } from "react";
 
 type AppTableProps = {
@@ -26,11 +27,10 @@ function AppTable({
   handleEditClickSave,
 }: AppTableProps) {
   const [editedRow, setEditedRow] = useState<number>(null);
-  const [updatedVisit, setUpdateForVisit] = useState<VisitDataModal>(undefined);
+  const [updatedVisit, setUpdateForVisit] = useState<VisitDataModal>({});
 
   function handleEditClick(rowIndex: number) {
     setEditedRow(rowIndex);
-    console.log(rowIndex);
   }
 
   return (
@@ -64,14 +64,27 @@ function AppTable({
                         // onClick={() => handleDeleteClick(row.id)}
                       />
                     </TableCell>
-                    <TableCell
-                      onClick={() => handleEditClick(index)}
-                      sx={{ cursor: "pointer" }}
-                    >
-                      Edit
-                    </TableCell>
+                    {editedRow !== null && editedRow === index ? (
+                      <TableCell>
+                        <Box display="flex" justifyContent="center" gap={1}>
+                          <IconButton color="success">
+                            <Save fontSize="small" />
+                          </IconButton>
+                          <IconButton color="error">
+                            <Cancel fontSize="small" />
+                          </IconButton>
+                        </Box>
+                      </TableCell>
+                    ) : (
+                      <TableCell
+                        onClick={() => handleEditClick(index)}
+                        sx={{ cursor: "pointer" }}
+                      >
+                        Edit
+                      </TableCell>
+                    )}
                     <TableCell align="right">{index}</TableCell>
-                    {editedRow && editedRow === index ? (
+                    {editedRow !== null && editedRow === index ? (
                       <>
                         <TableCell>
                           <TextField type="text" value={row.visits} />
