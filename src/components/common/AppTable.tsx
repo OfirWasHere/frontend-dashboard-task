@@ -18,19 +18,52 @@ import { useState } from "react";
 type AppTableProps = {
   tableDataRows: VisitDataModal[] | null;
   handleDeleteClick: (id: string) => void;
-  handleEditClickSave: (id: string) => void;
+  handleSave: (visits: number, date: string, id: string) => void;
 };
 
 function AppTable({
   tableDataRows,
   handleDeleteClick,
-  handleEditClickSave,
+  handleSave,
 }: AppTableProps) {
   const [editedRow, setEditedRow] = useState<number>(null);
-  const [updatedVisit, setUpdateForVisit] = useState<VisitDataModal>({});
+  const [newVisitAmount, setNewVisitAmount] = useState<number>(0);
+  const [newDate, setNewDate] = useState<string>("");
 
   function handleEditClick(rowIndex: number) {
+    setNewVisitAmount(0);
+    setNewDate("");
     setEditedRow(rowIndex);
+  }
+
+  function handleTextFieldChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setNewVisitAmount(Number(event.target.value));
+  }
+
+  function handleDateChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setNewDate(String(event.target.value));
+  }
+
+  function handleEditCancel() {
+    setNewVisitAmount(0);
+    setNewDate("");
+    setEditedRow(null);
+  }
+
+  function handleSaveClick(date: string, visits: number, id: string) {
+    const updatedDate = newDate === "" ? date : newDate;
+
+    const updatedVisits =
+      visits !== newVisitAmount &&
+      newVisitAmount !== 0 &&
+      newVisitAmount !== null
+        ? newVisitAmount
+        : visits;
+
+    handleSave(updatedVisits, updatedDate, id);
+    setNewVisitAmount(0);
+    setNewDate("");
+    setEditedRow(null);
   }
 
   return (
@@ -61,16 +94,21 @@ function AppTable({
                     <TableCell align="right">
                       <Delete
                         sx={{ cursor: "pointer" }}
-                        // onClick={() => handleDeleteClick(row.id)}
+                        onClick={() => handleDeleteClick(row.id)}
                       />
                     </TableCell>
                     {editedRow !== null && editedRow === index ? (
                       <TableCell>
                         <Box display="flex" justifyContent="center" gap={1}>
-                          <IconButton color="success">
+                          <IconButton
+                            color="success"
+                            onClick={() =>
+                              handleSaveClick(row.date, row.visits, row.id)
+                            }
+                          >
                             <Save fontSize="small" />
                           </IconButton>
-                          <IconButton color="error">
+                          <IconButton color="error" onClick={handleEditCancel}>
                             <Cancel fontSize="small" />
                           </IconButton>
                         </Box>
@@ -87,16 +125,26 @@ function AppTable({
                     {editedRow !== null && editedRow === index ? (
                       <>
                         <TableCell>
-                          <TextField type="text" value={row.visits} />
+                          <TextField
+                            type="number"
+                            placeholder={String(row.visits)}
+                            value={newVisitAmount !== 0 ? newVisitAmount : ""}
+                            onChange={handleTextFieldChange}
+                          />
                         </TableCell>
                         <TableCell>
-                          <TextField type="date" value={row.date} />
+                          <TextField
+                            type="date"
+                            placeholder={String(row.date)}
+                            value={newDate !== "" ? newDate : row.date}
+                            onChange={handleDateChange}
+                          />
                         </TableCell>
                       </>
                     ) : (
                       <>
-                        <TableCell align="right">{row.date}</TableCell>
                         <TableCell align="right">{row.visits}</TableCell>
+                        <TableCell align="right">{row.date}</TableCell>
                       </>
                     )}
                   </TableRow>

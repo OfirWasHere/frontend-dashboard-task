@@ -1,6 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { deleteVisits, fetchAllVisits } from "../../services/DataService";
+import {
+  deleteVisits,
+  editVisits,
+  fetchAllVisits,
+} from "../../services/DataService";
 import AppTable from "../../components/common/AppTable";
 import { VisitDataModal } from "../../utils/types";
 
@@ -25,7 +29,17 @@ function DashboardV2() {
     setVisits(updatedVisitsArr);
   };
 
-  const handleEditClickSave = (id: string) => {};
+  const handleSave = (
+    updatedVisitsList: number,
+    updatedDate: string,
+    id: string
+  ) => {
+    editVisits({ id: id, visits: updatedVisitsList, date: updatedDate });
+    const index = visits.findIndex((item) => item.id === id);
+    const updatedVisitsArr = [...visits];
+    updatedVisitsArr[index] = { visits: updatedVisitsList, date: updatedDate };
+    setVisits(updatedVisitsArr);
+  };
 
   return (
     <div>
@@ -42,7 +56,7 @@ function DashboardV2() {
           <AppTable
             tableDataRows={visits}
             handleDeleteClick={handleDeleteClick}
-            handleEditClickSave={handleEditClickSave}
+            handleSave={handleSave}
           />
         </Box>
       </Box>
