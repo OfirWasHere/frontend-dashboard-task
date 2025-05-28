@@ -1,9 +1,6 @@
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import { TableRow, TableCell, TableHead } from "@mui/material";
 
 function AppSpecialTableHead() {
-  // TODO implement simple sorting
   return (
     <TableHead>
       <TableRow sx={{ backgroundColor: "#f5f5f5" }}>

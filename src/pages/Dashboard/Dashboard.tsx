@@ -11,6 +11,7 @@ import useAuth from "../../hooks/useAuth";
 import InsertDataForm from "../../components/InsertDataForm/InsertDataForm";
 import useIsMobile from "../../hooks/useIsMobile";
 import AppTable from "../../components/AppTable/AppTable";
+import AppChart from "../../components/AppChart/AppChart";
 
 function Dashboard() {
   const [visits, setVisits] = useState<VisitDataModal[] | null>(null);
@@ -60,6 +61,9 @@ function Dashboard() {
   return (
     <div>
       <Box m={isMobile ? 0 : 4}>
+        <Button variant="contained" onClick={() => firebaseLogout()}>
+          log out
+        </Button>
         <Typography variant="h3" textAlign={"center"}>
           Analytics Dashboard
         </Typography>
@@ -88,9 +92,9 @@ function Dashboard() {
             submitFormAction={(data) => handleAddVisits(data)}
           />
         </Box>
-        {/* <Button variant="contained" onClick={() => firebaseLogout()}>
-          log out
-        </Button> */}
+        <Box sx={{ pt: 5 }}>
+          <AppChart visitsData={visits} />
+        </Box>
       </Box>
     </div>
   );
