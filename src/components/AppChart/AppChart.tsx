@@ -12,52 +12,27 @@ import {
 import { VisitDataModal } from "../../utils/types";
 import { Box, Button } from "@mui/material";
 
-function filterByWeekly(data: VisitDataModal[]) {
+function filterByTime(data: VisitDataModal[], time: string) {
   let result: any = {};
+  let slicedDate: string = "";
 
   data?.forEach((item) => {
-    const year = item.date.slice(0, 4);
-    const week = item.date.slice(7, 10);
-    const yearAndWeek = year.concat(week);
-
-    if (!result[yearAndWeek]) {
-      result[yearAndWeek] = 0;
+    if (time === "daily") {
+      const dayYearMonth = item.date;
+      slicedDate = dayYearMonth;
     }
-    result[yearAndWeek] += item.visits;
-  });
-
-  return Object.entries(result).map(([name, visits]) => ({
-    name,
-    visits,
-  }));
-}
-function filterByMonthly(data: VisitDataModal[]) {
-  let result: any = {};
-
-  data?.forEach((item) => {
-    const yearMonthly = item.date.slice(0, 7);
-    if (!result[yearMonthly]) {
-      result[yearMonthly] = 0;
+    if (time === "weekly") {
+      const year = item.date.slice(0, 4);
+      const week = item.date.slice(7, 10);
+      slicedDate = year.concat(week);
     }
-    result[yearMonthly] += item.visits;
-  });
-
-  return Object.entries(result).map(([name, visits]) => ({
-    name,
-    visits,
-  }));
-}
-
-function filterByDaily(data: VisitDataModal[]) {
-  let result: any = {};
-
-  data?.forEach((item) => {
-    const dayYearMonth = item.date;
-
-    if (!result[dayYearMonth]) {
-      result[dayYearMonth] = 0;
+    if (time === "monthly") {
+      slicedDate = item.date.slice(0, 7);
     }
-    result[dayYearMonth] += item.visits;
+    if (!result[slicedDate]) {
+      result[slicedDate] = 0;
+    }
+    result[slicedDate] += item.visits;
   });
 
   return Object.entries(result).map(([name, visits]) => ({
@@ -77,9 +52,7 @@ function AppChart({ visitsData, defaultSelection = "weekly" }: AppChartProps) {
 
   useEffect(() => {
     const newData = (time: string) => {
-      if (time === "monthly") return filterByMonthly(visitsData);
-      if (time === "weekly") return filterByWeekly(visitsData);
-      if (time === "daily") return filterByDaily(visitsData);
+      if (time) return filterByTime(visitsData, time);
       return [];
     };
     setChartData(newData(filter));
