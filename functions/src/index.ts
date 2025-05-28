@@ -9,7 +9,7 @@ initializeApp();
 const db = getFirestore();
 
 // GET
-export const getAllVisits = onRequest(async (request, response) => {
+export const getAllVisits = onRequest(async (request: Request, response: Response) => {
     try {
         const fetched = await db.collection(AppConfig.databaseName).get();
         const data = fetched.docs.map((e: Visit) => ({ id: e.id, ...e.data() }));
@@ -22,7 +22,7 @@ export const getAllVisits = onRequest(async (request, response) => {
 });
 
 // POST
-export const addVisits = onRequest(async (request, response) => {
+export const addVisits = onRequest(async (request: Request, response: Response) => {
     try {
         const payload: Visit = request.body.payload
         if (!payload) {
@@ -38,7 +38,7 @@ export const addVisits = onRequest(async (request, response) => {
 });
 
 // DELETE
-export const removeVisits = onRequest(async (request, response) => {
+export const removeVisits = onRequest(async (request: Request, response: Response) => {
     try {
         const payload: string = request.body.id;
         if (!payload) {
@@ -54,7 +54,7 @@ export const removeVisits = onRequest(async (request, response) => {
 })
 
 // PUT
-export const editVisits = onRequest(async (request, response) => {
+export const editVisits = onRequest(async (request: Request, response: Response) => {
     try {
         const payload: Visit = request.body.payload;
 

@@ -36,3 +36,5 @@ cd functions
 ```bash
 npm run serve
 ```
+
+After all of this make sure to refresh the localhost
