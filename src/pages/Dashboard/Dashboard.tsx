@@ -1,56 +1,96 @@
-import { Button } from "@mui/material";
-import React from "react";
-import useAuth from "../../hooks/useAuth";
+import { Box, Button, FormControl, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import {
   addVisits,
   deleteVisits,
   editVisits,
   fetchAllVisits,
 } from "../../services/DataService";
+import AppTable from "../../components/common/AppTable";
+import { VisitDataModal } from "../../utils/types";
+import useAuth from "../../hooks/useAuth";
+import InsertDataForm from "../../components/InsertDataForm/InsertDataForm";
 
 function Dashboard() {
+  const [visits, setVisits] = useState<VisitDataModal[] | null>(null);
   const { firebaseLogout } = useAuth();
-  let currentDay = new Date();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchAllVisits();
+      if (data) {
+        setVisits(data);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleDeleteClick = (id: string) => {
+    deleteVisits(id);
+    const updatedVisitsArr = visits.filter((item) => {
+      return item.id !== id;
+    });
+    setVisits(updatedVisitsArr);
+  };
+
+  const handleSave = (
+    updatedVisitsList: number,
+    updatedDate: string,
+    id: string
+  ) => {
+    editVisits({ id: id, visits: updatedVisitsList, date: updatedDate });
+    const index = visits.findIndex((item) => item.id === id);
+    const updatedVisitsArr = [...visits];
+    updatedVisitsArr[index] = { visits: updatedVisitsList, date: updatedDate };
+    setVisits(updatedVisitsArr);
+  };
+
+  const handleAddVisits = async (data: VisitDataModal) => {
+    if (data) {
+      addVisits(data);
+      const result = await fetchAllVisits();
+      if (result) {
+        setVisits(result);
+      }
+    }
+  };
 
   return (
     <div>
-      {/* <Button variant="contained" onClick={() => firebaseLogout()}>
-        log out
-      </Button> */}
-      <Button variant="contained" onClick={fetchAllVisits}>
-        Fetch all data
-      </Button>
-      <Button
-        variant="contained"
-        onClick={() =>
-          addVisits({
-            visits: 100,
-            date: currentDay.toISOString().split("T")[0],
-          })
-        }
-      >
-        add data to firestore
-      </Button>
-      <Button
-        variant="contained"
-        onClick={() => deleteVisits("Be5vdIqSr1jvfgebjYRd")}
-      >
-        remove date from db
-      </Button>
-      <Button
-        variant="contained"
-        onClick={() =>
-          editVisits({
-            id: "Be5vdIqSr1jvfgebjYRd",
-            visits: 40,
-            date: currentDay.toISOString().split("T")[0],
-          })
-        }
-      >
-        edit vists editVisits
-      </Button>
+      <Box m={4}>
+        <Typography variant="h3" textAlign={"center"}>
+          Analytics Dashboard
+        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "20px",
+          }}
+        >
+          <AppTable
+            tableDataRows={visits}
+            handleDeleteClick={handleDeleteClick}
+            handleSave={handleSave}
+          />
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <InsertDataForm
+            headerText="addVisits"
+            submitFormAction={(data) => handleAddVisits(data)}
+          />
+        </Box>
+        {/* <Button variant="contained" onClick={() => firebaseLogout()}>
+          log out
+        </Button> */}
+      </Box>
     </div>
   );
 }
-
 export default Dashboard;
