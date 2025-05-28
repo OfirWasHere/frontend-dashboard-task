@@ -6,7 +6,7 @@ import {
   deleteVisits,
   editVisits,
   fetchAllVisits,
-} from "../../services/dashboardService";
+} from "../../services/DataService";
 
 function Dashboard() {
   const { firebaseLogout } = useAuth();
