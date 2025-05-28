@@ -123,6 +123,9 @@ function AppTable({
   return (
     <div>
       <Box>
+        <Box display={"flex"} alignItems={"center"}>
+          <AppTableFilters handleFilters={handleFilters} />
+        </Box>
         <TableContainer>
           <Table sx={{ minWidth: isMobile ? "90vw" : "80vw" }}>
             <AppSpecialTableHead />
@@ -206,10 +209,7 @@ function AppTable({
             </TableBody>
           </Table>
         </TableContainer>
-        <Box display={"flex"} justifyContent={"space-between"}>
-          <Box display={"flex"} alignItems={"center"}>
-            <AppTableFilters handleFilters={handleFilters} />
-          </Box>
+        <Box>
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"

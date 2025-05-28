@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import {
   addVisits,
@@ -7,25 +7,25 @@ import {
   fetchAllVisits,
 } from "../../services/DataService";
 import { VisitDataModal } from "../../utils/types";
-import useAuth from "../../hooks/useAuth";
 import InsertDataForm from "../../components/InsertDataForm/InsertDataForm";
 import useIsMobile from "../../hooks/useIsMobile";
 import AppTable from "../../components/AppTable/AppTable";
 import AppChart from "../../components/AppChart/AppChart";
+import Navbar from "../../components/Navbar/Navbar";
+import AppTableFilters from "../../components/AppTable/AppTableFilters";
 
 function Dashboard() {
   const [visits, setVisits] = useState<VisitDataModal[] | null>(null);
-  const { firebaseLogout } = useAuth();
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchAllVisits();
-      if (data) {
-        setVisits(data);
-      }
-    };
-    fetchData();
+    // const fetchData = async () => {
+    //   const data = await fetchAllVisits();
+    //   if (data) {
+    //     setVisits(data);
+    //   }
+    // };
+    // fetchData();
   }, []);
 
   const handleDeleteClick = (id: string) => {
@@ -60,27 +60,8 @@ function Dashboard() {
 
   return (
     <div>
+      <Navbar title={"Analytics Dashboard"} />
       <Box m={isMobile ? 0 : 4}>
-        <Button variant="contained" onClick={() => firebaseLogout()}>
-          log out
-        </Button>
-        <Typography variant="h3" textAlign={"center"}>
-          Analytics Dashboard
-        </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: "20px",
-          }}
-        >
-          <AppTable
-            tableDataRows={visits}
-            handleDeleteClick={handleDeleteClick}
-            handleSave={handleSave}
-          />
-        </Box>
         <Box
           sx={{
             display: "flex",
@@ -92,6 +73,12 @@ function Dashboard() {
             submitFormAction={(data) => handleAddVisits(data)}
           />
         </Box>
+        {/* <AppTableFilters /> */}
+        <AppTable
+          tableDataRows={visits}
+          handleDeleteClick={handleDeleteClick}
+          handleSave={handleSave}
+        />
         <Box sx={{ pt: 5 }}>
           <AppChart visitsData={visits} />
         </Box>
