@@ -1,15 +1,19 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, FormControl, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import {
+  addVisits,
   deleteVisits,
   editVisits,
   fetchAllVisits,
 } from "../../services/DataService";
 import AppTable from "../../components/common/AppTable";
 import { VisitDataModal } from "../../utils/types";
+import useAuth from "../../hooks/useAuth";
+import InsertDataForm from "../../components/InsertDataForm/InsertDataForm";
 
 function DashboardV2() {
   const [visits, setVisits] = useState<VisitDataModal[] | null>(null);
+  const { firebaseLogout } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,10 +45,16 @@ function DashboardV2() {
     setVisits(updatedVisitsArr);
   };
 
+  const handleAddVisits = (data: VisitDataModal) => {
+    addVisits(data);
+  };
+
   return (
     <div>
       <Box m={4}>
-        <Typography variant="h3">Analytics Dashboard</Typography>
+        <Typography variant="h3" textAlign={"center"}>
+          Analytics Dashboard
+        </Typography>
         <Box
           sx={{
             display: "flex",
@@ -59,10 +69,20 @@ function DashboardV2() {
             handleSave={handleSave}
           />
         </Box>
-        
-        <Button variant="contained" sx={{ mb: 1 }}>
-          <Typography variant="h6">Add more</Typography>
-        </Button>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <InsertDataForm
+            headerText="addVisits"
+            submitFormAction={(data) => handleAddVisits(data)}
+          />
+        </Box>
+        {/* <Button variant="contained" onClick={() => firebaseLogout()}>
+          log out
+        </Button> */}
       </Box>
     </div>
   );
