@@ -6,14 +6,16 @@ import {
   editVisits,
   fetchAllVisits,
 } from "../../services/DataService";
-import AppTable from "../../components/common/AppTable";
 import { VisitDataModal } from "../../utils/types";
 import useAuth from "../../hooks/useAuth";
 import InsertDataForm from "../../components/InsertDataForm/InsertDataForm";
+import useIsMobile from "../../hooks/useIsMobile";
+import AppTable from "../../components/AppTable/AppTable";
 
 function Dashboard() {
   const [visits, setVisits] = useState<VisitDataModal[] | null>(null);
   const { firebaseLogout } = useAuth();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,7 +59,7 @@ function Dashboard() {
 
   return (
     <div>
-      <Box m={4}>
+      <Box m={isMobile ? 0 : 4}>
         <Typography variant="h3" textAlign={"center"}>
           Analytics Dashboard
         </Typography>

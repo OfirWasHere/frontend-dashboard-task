@@ -4,13 +4,17 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { Routes } from "./routes/Routes";
 import { RouterProvider, createBrowserRouter } from "react-router";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <RouterProvider router={createBrowserRouter(Routes)} />
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <RouterProvider router={createBrowserRouter(Routes)} />
+    </LocalizationProvider>
   </React.StrictMode>
 );
 
