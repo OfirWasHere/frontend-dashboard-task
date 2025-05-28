@@ -1,5 +1,5 @@
 import { FormControl, Typography, Button, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 type InsertDataFormProps = {
   submitText?: string;
@@ -16,6 +16,9 @@ function InsertDataForm({
 
   const [visits, setVisits] = useState<number>(0);
   const [selectedDate, setSelectedDate] = useState<string>("");
+  useEffect(() => {
+    setSelectedDate(today);
+  }, []);
 
   const handleSubmit = () => {
     const dateToUse = selectedDate || today;
@@ -50,6 +53,7 @@ function InsertDataForm({
         />
 
         <Button
+          disabled={visits === 0}
           onClick={handleSubmit}
           sx={{ display: "flex", alignContent: "center", mt: 2 }}
           variant="contained"
