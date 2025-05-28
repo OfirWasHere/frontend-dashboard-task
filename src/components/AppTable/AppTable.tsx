@@ -81,9 +81,7 @@ function AppTable({
         : visits;
 
     handleSave(updatedVisits, updatedDate, id);
-    setNewVisitAmount(0);
-    setNewDate("");
-    setEditedRow(null);
+    handleEditCancel();
   }
 
   const handleChangePage = (event: unknown, newPage: number) => {
