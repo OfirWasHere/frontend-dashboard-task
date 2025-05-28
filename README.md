@@ -28,11 +28,18 @@ The application will open automatically in your default browser at `http://local
 
 ### 5. Run the Backend
 1. Open a new terminal tab using the `+` icon in the terminal panel
+
 2. Navigate to the functions folder:
 ```bash
 cd functions
 ```
+
 3. Start the backend server:
+```bash
+npm install
+```
+
+4. Start the backend server:
 ```bash
 npm run serve
 ```
