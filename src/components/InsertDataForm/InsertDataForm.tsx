@@ -1,4 +1,4 @@
-import { FormControl, Typography, Button, TextField } from "@mui/material";
+import { FormControl, Typography, Button, TextField, Box } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
 import React, { useEffect, useState } from "react";
@@ -41,31 +41,39 @@ function InsertDataForm({
   return (
     <div>
       <FormControl>
-        <Typography variant="h6">{headerText}</Typography>
-
-        <TextField
-          placeholder="Amount"
-          type="number"
-          required
-          value={visits !== 0 ? visits : ""}
-          onChange={(e) => setVisits(Number(e.target.value))}
-          sx={{ my: 1 }}
-        />
-        <DatePicker
-          label="Date"
-          value={selectedDate ? dayjs(selectedDate) : dayjs(today)}
-          onChange={handleDateChange}
-          format="YYYY-MM-DD"
-          sx={{ my: 1 }}
-        />
-        <Button
-          disabled={visits === 0}
-          onClick={handleSubmit}
-          sx={{ display: "flex", alignContent: "center", mt: 2 }}
-          variant="contained"
-        >
-          <Typography variant="h6">{submitText}</Typography>
-        </Button>
+        <Typography textAlign={"center"} variant="h6">
+          {headerText}
+        </Typography>
+        <Box sx={{ display: "flex", flexDirection: "row" }}>
+          <TextField
+            placeholder="Amount"
+            type="number"
+            required
+            value={visits !== 0 ? visits : ""}
+            onChange={(e) => setVisits(Number(e.target.value))}
+            sx={{ my: 1 }}
+          />
+          <DatePicker
+            label="Date"
+            value={selectedDate ? dayjs(selectedDate) : dayjs(today)}
+            onChange={handleDateChange}
+            format="YYYY-MM-DD"
+            sx={{ my: 1 }}
+          />
+        </Box>
+        <Box display={"flex"}>
+          <Button
+            disabled={visits === 0}
+            onClick={handleSubmit}
+            fullWidth
+            sx={{ display: "flex", alignContent: "center", mt: 2 }}
+            variant="contained"
+          >
+            <Typography variant="h6" mt={0}>
+              {submitText}
+            </Typography>
+          </Button>
+        </Box>
       </FormControl>
     </div>
   );

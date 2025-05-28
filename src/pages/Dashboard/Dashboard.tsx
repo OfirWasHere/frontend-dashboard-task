@@ -95,20 +95,27 @@ function Dashboard() {
   return (
     <div>
       <Navbar title={"Analytics Dashboard"} />
-      <Box m={isMobile ? 0 : 4}>
+      <Box m={isMobile ? 0 : 4} sx={{ maxWidth: 1600, mx: "auto", px: 5 }}>
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "center",
+            // display: "flex",
+            // justifyContent: "center",
           }}
         >
-          <InsertDataForm
-            headerText="addVisits"
-            submitFormAction={(data) => handleAddVisits(data)}
-          />
-        </Box>
-        <Box display={"flex"} alignItems={"center"}>
-          <AppTableFilters handleFilters={handleFilters} />
+          <Box
+            display={"flex"}
+            justifyContent={"space-between"}
+            flexDirection={isMobile ? "column" : "row"}
+            alignItems={isMobile ? "stretch" : "flex-start"}
+            gap={4}
+            my={2}
+          >
+            <AppTableFilters handleFilters={handleFilters} />
+            <InsertDataForm
+              headerText="Add new data"
+              submitFormAction={(data) => handleAddVisits(data)}
+            />
+          </Box>
         </Box>
         <AppTable
           tableDataRows={filteredData}
