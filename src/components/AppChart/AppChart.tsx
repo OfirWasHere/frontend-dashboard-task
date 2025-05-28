@@ -152,6 +152,26 @@ function filterByMonthly() {
   }));
 }
 
+function filterByWeekly() {
+  let result: any = {};
+
+  mydata.forEach((item) => {
+    const year = item.date.slice(0, 4);
+    const week = item.date.slice(7, 10);
+    const yearAndWeek = year.concat(week);
+
+    if (!result[yearAndWeek]) {
+      result[yearAndWeek] = 0;
+    }
+    result[yearAndWeek] += item.visits;
+  });
+
+  return Object.entries(result).map(([name, visits]) => ({
+    name,
+    visits,
+  }));
+}
+
 function filterByDaily() {
   let result: any = {};
 
@@ -163,8 +183,6 @@ function filterByDaily() {
     }
     result[dayYearMonth] += item.visits;
   });
-
-  console.log(result);
 
   return Object.entries(result).map(([name, visits]) => ({
     name,
@@ -179,11 +197,12 @@ type AppChartProps = {
 
 function filterChart(time: string) {
   if (time === "monthly") return filterByMonthly();
+  if (time === "weekly") return filterByWeekly();
   if (time === "daily") return filterByDaily();
   return [];
 }
 
-function AppChart({ visitsData, defaultSelection = "monthly" }: AppChartProps) {
+function AppChart({ visitsData, defaultSelection = "weekly" }: AppChartProps) {
   const [chartData, setChartData] = useState(() =>
     filterChart(defaultSelection)
   );
