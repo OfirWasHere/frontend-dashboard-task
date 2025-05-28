@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import useIsMobile from "../../hooks/useIsMobile";
 import dayjs, { Dayjs } from "dayjs";
 import { DatePicker } from "@mui/x-date-pickers";
+import AppTableFilters from "./AppTableFilters";
 
 type AppTableProps = {
   tableDataRows: VisitDataModal[] | null;
@@ -189,10 +190,9 @@ function AppTable({
           </Table>
         </TableContainer>
         <Box display={"flex"} justifyContent={"space-between"}>
-          <Typography display={"flex"} alignItems={"center"}>
-            <Button>Select filters</Button>
-            filter by min or max amount, filter by date
-          </Typography>
+          <Box display={"flex"} alignItems={"center"}>
+            <AppTableFilters handleFilters={handleFilters} />
+          </Box>
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"

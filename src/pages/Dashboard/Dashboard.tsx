@@ -6,11 +6,11 @@ import {
   editVisits,
   fetchAllVisits,
 } from "../../services/DataService";
-import AppTable from "../../components/common/AppTable";
 import { VisitDataModal } from "../../utils/types";
 import useAuth from "../../hooks/useAuth";
 import InsertDataForm from "../../components/InsertDataForm/InsertDataForm";
 import useIsMobile from "../../hooks/useIsMobile";
+import AppTable from "../../components/AppTable/AppTable";
 
 function Dashboard() {
   const [visits, setVisits] = useState<VisitDataModal[] | null>(null);
@@ -19,10 +19,10 @@ function Dashboard() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchAllVisits();
-      if (data) {
-        setVisits(data);
-      }
+      // const data = await fetchAllVisits();
+      // if (data) {
+      // setVisits(data);
+      // }
     };
     fetchData();
   }, []);
