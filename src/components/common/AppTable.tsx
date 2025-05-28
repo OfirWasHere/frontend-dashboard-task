@@ -15,6 +15,7 @@ import {
 import { VisitDataModal } from "../../utils/types";
 import { Cancel, Delete, Save } from "@mui/icons-material";
 import { useEffect, useState } from "react";
+import useIsMobile from "../../hooks/useIsMobile";
 
 type AppTableProps = {
   tableDataRows: VisitDataModal[] | null;
@@ -32,6 +33,7 @@ function AppTable({
   const [newDate, setNewDate] = useState<string>("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const isMobile = useIsMobile();
 
   function handleEditClick(rowIndex: number) {
     setNewVisitAmount(0);
@@ -79,15 +81,12 @@ function AppTable({
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  const paginationHandler = () => {
-    return Math.ceil(tableDataRows?.length / rowsPerPage);
-  };
 
   return (
     <div>
       <Box>
         <TableContainer>
-          <Table sx={{ minWidth: 650 }}>
+          <Table sx={{ minWidth: isMobile ? "90vw" : "80vw" }}>
             <TableHead color="primary">
               <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
                 <TableCell align="center" padding="checkbox">
