@@ -11,11 +11,10 @@ import {
 } from "@mui/material";
 import { VisitDataModal } from "../../utils/types";
 import { Cancel, Delete, Save } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useIsMobile from "../../hooks/useIsMobile";
 import dayjs, { Dayjs } from "dayjs";
 import { DatePicker } from "@mui/x-date-pickers";
-import AppTableFilters from "./AppTableFilters";
 import AppSpecialTableHead from "./AppSpecialTableHead";
 
 type AppTableProps = {
@@ -31,18 +30,10 @@ function AppTable({
 }: AppTableProps) {
   const [editedRow, setEditedRow] = useState<number>(null);
   const [newVisitAmount, setNewVisitAmount] = useState<number>(0);
-  const [filteredData, setFilteredData] =
-    useState<VisitDataModal[]>(tableDataRows);
   const [newDate, setNewDate] = useState<string>("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const isMobile = useIsMobile();
-
-  useEffect(() => {
-    if (tableDataRows) {
-      setFilteredData(tableDataRows);
-    }
-  }, [tableDataRows]);
 
   function handleEditClick(rowIndex: number) {
     setNewVisitAmount(0);
@@ -93,45 +84,45 @@ function AppTable({
     setPage(0);
   };
 
-  const handleFilters = (
-    maxAmount: number,
-    minAmount: number,
-    mimDate: string,
-    maxDate: string
-  ) => {
-    if (
-      maxAmount === 0 &&
-      minAmount === 0 &&
-      mimDate === "" &&
-      maxDate === ""
-    ) {
-      setFilteredData(tableDataRows);
-      return;
-    }
+  // const handleFilters = (
+  //   maxAmount: number,
+  //   minAmount: number,
+  //   mimDate: string,
+  //   maxDate: string
+  // ) => {
+  //   if (
+  //     maxAmount === 0 &&
+  //     minAmount === 0 &&
+  //     mimDate === "" &&
+  //     maxDate === ""
+  //   ) {
+  //     setFilteredData(tableDataRows);
+  //     return;
+  //   }
 
-    const result = tableDataRows.filter(
-      (item) =>
-        (minAmount === 0 || item.visits > minAmount) &&
-        (maxAmount === 0 || item.visits < maxAmount) &&
-        (mimDate === "" || item.date >= mimDate) &&
-        (maxDate === "" || item.date <= maxDate)
-    );
+  //   const result = tableDataRows.filter(
+  //     (item) =>
+  //       (minAmount === 0 || item.visits > minAmount) &&
+  //       (maxAmount === 0 || item.visits < maxAmount) &&
+  //       (mimDate === "" || item.date >= mimDate) &&
+  //       (maxDate === "" || item.date <= maxDate)
+  //   );
 
-    setFilteredData(result);
-  };
+  //   setFilteredData(result);
+  // };
 
   return (
     <div>
       <Box>
-        <Box display={"flex"} alignItems={"center"}>
+        {/* <Box display={"flex"} alignItems={"center"}>
           <AppTableFilters handleFilters={handleFilters} />
-        </Box>
+        </Box> */}
         <TableContainer>
           <Table sx={{ minWidth: isMobile ? "90vw" : "80vw" }}>
             <AppSpecialTableHead />
             <TableBody>
-              {filteredData && filteredData.length > 0 ? (
-                filteredData
+              {tableDataRows && tableDataRows.length > 0 ? (
+                tableDataRows
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => (
                     <TableRow key={index} hover>
@@ -213,7 +204,7 @@ function AppTable({
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={filteredData?.length || 0}
+            count={tableDataRows?.length || 0}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

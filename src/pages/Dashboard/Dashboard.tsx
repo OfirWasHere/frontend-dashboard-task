@@ -16,17 +16,24 @@ import AppTableFilters from "../../components/AppTable/AppTableFilters";
 
 function Dashboard() {
   const [visits, setVisits] = useState<VisitDataModal[] | null>(null);
+  const [filteredData, setFilteredData] = useState<VisitDataModal[]>(visits);
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    // const fetchData = async () => {
-    //   const data = await fetchAllVisits();
-    //   if (data) {
-    //     setVisits(data);
-    //   }
-    // };
-    // fetchData();
+    const fetchData = async () => {
+      const data = await fetchAllVisits();
+      if (data) {
+        setVisits(data);
+      }
+    };
+    fetchData();
   }, []);
+
+  useEffect(() => {
+    if (visits) {
+      setFilteredData(visits);
+    }
+  }, [visits]);
 
   const handleDeleteClick = (id: string) => {
     deleteVisits(id);
@@ -58,6 +65,33 @@ function Dashboard() {
     }
   };
 
+  const handleFilters = (
+    maxAmount: number,
+    minAmount: number,
+    mimDate: string,
+    maxDate: string
+  ) => {
+    if (
+      maxAmount === 0 &&
+      minAmount === 0 &&
+      mimDate === "" &&
+      maxDate === ""
+    ) {
+      setFilteredData(visits);
+      return;
+    }
+
+    const result = visits.filter(
+      (item) =>
+        (minAmount === 0 || item.visits > minAmount) &&
+        (maxAmount === 0 || item.visits < maxAmount) &&
+        (mimDate === "" || item.date >= mimDate) &&
+        (maxDate === "" || item.date <= maxDate)
+    );
+
+    setFilteredData(result);
+  };
+
   return (
     <div>
       <Navbar title={"Analytics Dashboard"} />
@@ -73,9 +107,11 @@ function Dashboard() {
             submitFormAction={(data) => handleAddVisits(data)}
           />
         </Box>
-        {/* <AppTableFilters /> */}
+        <Box display={"flex"} alignItems={"center"}>
+          <AppTableFilters handleFilters={handleFilters} />
+        </Box>
         <AppTable
-          tableDataRows={visits}
+          tableDataRows={filteredData}
           handleDeleteClick={handleDeleteClick}
           handleSave={handleSave}
         />
