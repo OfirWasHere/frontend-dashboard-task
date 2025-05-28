@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import {
   deleteVisits,
@@ -59,9 +59,12 @@ function DashboardV2() {
             handleSave={handleSave}
           />
         </Box>
+        
+        <Button variant="contained" sx={{ mb: 1 }}>
+          <Typography variant="h6">Add more</Typography>
+        </Button>
       </Box>
     </div>
   );
 }
-
 export default DashboardV2;

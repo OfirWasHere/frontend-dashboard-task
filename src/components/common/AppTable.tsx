@@ -69,9 +69,6 @@ function AppTable({
   return (
     <div>
       <Box>
-        <Button variant="contained" sx={{ mb: 1 }}>
-          <Typography variant="h6">Add more</Typography>
-        </Button>
         <TableContainer>
           <Table sx={{ minWidth: 650 }}>
             <TableHead color="primary">
