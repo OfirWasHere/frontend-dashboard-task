@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ResponsiveContainer,
   BarChart,
@@ -135,11 +135,6 @@ const mydata = [
   },
 ];
 
-type AppChartProps = {
-  visitsData: VisitDataModal[];
-  defaultDisplay?: "daily" | "weekly" | "monthly" | string;
-};
-
 function filterByMonthly() {
   let result: any = {};
 
@@ -157,22 +152,53 @@ function filterByMonthly() {
   }));
 }
 
-function AppChart({ visitsData, defaultDisplay = "monthly" }: AppChartProps) {
-  const [filteredData, setFilteredData] = useState<any>([]);
+function filterByDaily() {
+  let result: any = {};
 
-  function filterChart(time: string) {
-    if (time === "monthly") {
-      setFilteredData(filterByMonthly);
+  mydata.forEach((item) => {
+    const dayYearMonth = item.date;
+
+    if (!result[dayYearMonth]) {
+      result[dayYearMonth] = 0;
     }
-  }
+    result[dayYearMonth] += item.visits;
+  });
 
-  const result = filteredData ? filteredData : () => filterByMonthly();
+  console.log(result);
+
+  return Object.entries(result).map(([name, visits]) => ({
+    name,
+    visits,
+  }));
+}
+
+type AppChartProps = {
+  visitsData: VisitDataModal[];
+  defaultSelection?: "daily" | "weekly" | "monthly" | string;
+};
+
+function filterChart(time: string) {
+  if (time === "monthly") return filterByMonthly();
+  if (time === "daily") return filterByDaily();
+  return [];
+}
+
+function AppChart({ visitsData, defaultSelection = "monthly" }: AppChartProps) {
+  const [chartData, setChartData] = useState(() =>
+    filterChart(defaultSelection)
+  );
+  const [filter, setFilter] = useState<string>(defaultSelection);
+
+  useEffect(() => {
+    const newData = filterChart(filter);
+    setChartData(newData);
+  }, [filter]);
 
   return (
     <Box>
       <ResponsiveContainer width={"100%"} height={300}>
         <BarChart
-          data={result}
+          data={chartData}
           margin={{
             top: 5,
             right: 30,
@@ -191,14 +217,20 @@ function AppChart({ visitsData, defaultDisplay = "monthly" }: AppChartProps) {
           />
         </BarChart>
       </ResponsiveContainer>
-      <Box>
-        <Button onClick={() => filterChart("monthly")} variant="contained">
-          Filter by dat
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          gap: 2,
+        }}
+      >
+        <Button onClick={() => setFilter("daily")} variant="contained">
+          Filter by day
         </Button>
-        <Button onClick={filterByMonthly} variant="contained">
+        <Button onClick={() => setFilter("weekly")} variant="contained">
           Filter by week
         </Button>
-        <Button onClick={filterByMonthly} variant="contained">
+        <Button onClick={() => setFilter("monthly")} variant="contained">
           Filter by month
         </Button>
       </Box>
