@@ -19,10 +19,10 @@ function Dashboard() {
 
   useEffect(() => {
     const fetchData = async () => {
-      // const data = await fetchAllVisits();
-      // if (data) {
-      // setVisits(data);
-      // }
+      const data = await fetchAllVisits();
+      if (data) {
+        setVisits(data);
+      }
     };
     fetchData();
   }, []);

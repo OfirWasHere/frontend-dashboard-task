@@ -33,10 +33,18 @@ function AppTable({
 }: AppTableProps) {
   const [editedRow, setEditedRow] = useState<number>(null);
   const [newVisitAmount, setNewVisitAmount] = useState<number>(0);
+  const [filteredData, setFilteredData] =
+    useState<VisitDataModal[]>(tableDataRows);
   const [newDate, setNewDate] = useState<string>("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const isMobile = useIsMobile();
+
+  useEffect(() => {
+    if (tableDataRows) {
+      setFilteredData(tableDataRows);
+    }
+  }, [tableDataRows]);
 
   function handleEditClick(rowIndex: number) {
     setNewVisitAmount(0);
@@ -89,7 +97,32 @@ function AppTable({
     setPage(0);
   };
 
-  const handleFilters = () => {};
+  const handleFilters = (
+    maxAmount: number,
+    minAmount: number,
+    mimDate: string,
+    maxDate: string
+  ) => {
+    if (
+      maxAmount === 0 &&
+      minAmount === 0 &&
+      mimDate === "" &&
+      maxDate === ""
+    ) {
+      setFilteredData(tableDataRows);
+      return;
+    }
+
+    const result = tableDataRows.filter(
+      (item) =>
+        (minAmount === 0 || item.visits > minAmount) &&
+        (maxAmount === 0 || item.visits < maxAmount) &&
+        (mimDate === "" || item.date >= mimDate) &&
+        (maxDate === "" || item.date <= maxDate)
+    );
+
+    setFilteredData(result);
+  };
 
   return (
     <div>
@@ -110,8 +143,8 @@ function AppTable({
               </TableRow>
             </TableHead>
             <TableBody>
-              {tableDataRows && tableDataRows.length > 0 ? (
-                tableDataRows
+              {filteredData && filteredData.length > 0 ? (
+                filteredData
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => (
                     <TableRow key={index} hover>
@@ -196,7 +229,7 @@ function AppTable({
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={tableDataRows?.length || 0}
+            count={filteredData?.length || 0}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
