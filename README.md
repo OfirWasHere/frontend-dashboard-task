@@ -8,7 +8,10 @@
 - Use Git: `git clone [repository-url]`
 - Or download the ZIP file and extract it
 
-### 2. Open Project
+### 2. Add the .env file
+- drag and drop the .env file into the `frontend-dashboard-task` folder
+
+### 3. Open Project
 1. Open Visual Studio Code
 2. Go to `File > Open Folder`
 3. Select the `frontend-dashboard-task` folder
@@ -18,6 +21,7 @@ Open the integrated terminal (`Terminal > New Terminal`) and run:
 ```bash
 npm install
 ```
+
 ### 4. Run the Frontend
 Ensure you're in the root folder (`frontend-dashboard-task`) and run:
 ```bash
@@ -34,7 +38,7 @@ The application will open automatically in your default browser at `http://local
 cd functions
 ```
 
-3. Start the backend server:
+3.  Install Dependencies:
 ```bash
 npm install
 ```
@@ -45,3 +49,11 @@ npm run serve
 ```
 
 After all of this make sure to refresh the localhost
+
+if you are getting an error:
+
+### debugging errors:
+if you are getting this error:
+FirebaseError: Installations: Missing App configuration value: "projectId" (installations/missing-app-config-values).
+
+please make sure you correctly put .env file in the root of the project folder (`frontend-dashboard-task`)
