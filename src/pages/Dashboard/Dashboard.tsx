@@ -96,19 +96,14 @@ function Dashboard() {
     <div>
       <Navbar title={"Analytics Dashboard"} />
       <Box m={isMobile ? 0 : 4} sx={{ maxWidth: 1600, mx: "auto", px: 5 }}>
-        <Box
-          sx={{
-            // display: "flex",
-            // justifyContent: "center",
-          }}
-        >
+        <Box>
           <Box
             display={"flex"}
             justifyContent={"space-between"}
             flexDirection={isMobile ? "column" : "row"}
             alignItems={isMobile ? "stretch" : "flex-start"}
             gap={4}
-            my={2}
+            my={isMobile ? 2 : 4}
           >
             <AppTableFilters handleFilters={handleFilters} />
             <InsertDataForm
@@ -117,12 +112,18 @@ function Dashboard() {
             />
           </Box>
         </Box>
+        <Box sx={{ mb: 4 }}>
+          <hr color="lightGrey" />
+        </Box>
         <AppTable
           tableDataRows={filteredData}
           handleDeleteClick={handleDeleteClick}
           handleSave={handleSave}
         />
-        <Box sx={{ pt: 5 }}>
+        <Box sx={{ my: 6 }}>
+          <hr color="lightGrey" />
+        </Box>
+        <Box>
           <AppChart visitsData={visits} />
         </Box>
       </Box>
