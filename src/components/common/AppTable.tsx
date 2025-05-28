@@ -16,6 +16,8 @@ import { VisitDataModal } from "../../utils/types";
 import { Cancel, Delete, Save } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import useIsMobile from "../../hooks/useIsMobile";
+import dayjs, { Dayjs } from "dayjs";
+import { DatePicker } from "@mui/x-date-pickers";
 
 type AppTableProps = {
   tableDataRows: VisitDataModal[] | null;
@@ -45,8 +47,12 @@ function AppTable({
     setNewVisitAmount(Number(event.target.value));
   }
 
-  function handleDateChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setNewDate(String(event.target.value));
+  function handleDateChange(value: Dayjs | null) {
+    if (value) {
+      setNewDate(value.format("YYYY-MM-DD"));
+    } else {
+      setNewDate("");
+    }
   }
 
   function handleEditCancel() {
@@ -81,6 +87,8 @@ function AppTable({
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  const handleFilters = () => {};
 
   return (
     <div>
@@ -153,11 +161,12 @@ function AppTable({
                             />
                           </TableCell>
                           <TableCell>
-                            <TextField
-                              type="date"
-                              placeholder={String(row.date)}
-                              value={newDate !== "" ? newDate : row.date}
+                            <DatePicker
+                              label="Date"
+                              value={newDate ? dayjs(newDate) : dayjs(row.date)}
                               onChange={handleDateChange}
+                              sx={{ maxWidth: isMobile ? "0px" : "auto" }}
+                              format="YYYY-MM-DD"
                             />
                           </TableCell>
                         </>
@@ -179,15 +188,21 @@ function AppTable({
             </TableBody>
           </Table>
         </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={tableDataRows?.length || 0}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+        <Box display={"flex"} justifyContent={"space-between"}>
+          <Typography display={"flex"} alignItems={"center"}>
+            <Button>Select filters</Button>
+            filter by min or max amount, filter by date
+          </Typography>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={tableDataRows?.length || 0}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Box>
       </Box>
     </div>
   );
