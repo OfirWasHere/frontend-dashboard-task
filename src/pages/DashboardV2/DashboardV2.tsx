@@ -45,8 +45,14 @@ function DashboardV2() {
     setVisits(updatedVisitsArr);
   };
 
-  const handleAddVisits = (data: VisitDataModal) => {
-    addVisits(data);
+  const handleAddVisits = async (data: VisitDataModal) => {
+    if (data) {
+      addVisits(data);
+      const result = await fetchAllVisits();
+      if (result) {
+        setVisits(result);
+      }
+    }
   };
 
   return (

@@ -20,8 +20,6 @@ async function fetchAllVisits(): Promise<VisitDataModal[]> {
 
 // POST 
 async function addVisits(payload: VisitDataModal) {
-    console.log(payload);
-
     try {
         await fetch(API + 'addVisits', {
             method: 'POST',
