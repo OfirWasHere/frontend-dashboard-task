@@ -61,7 +61,6 @@ function Login() {
             fullWidth
             margin="normal"
           />
-          {/* TODO: Add hide/show password */}
           <TextField
             onChange={(e) => setPassword(e.target.value)}
             value={password}

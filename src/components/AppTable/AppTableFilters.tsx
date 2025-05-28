@@ -103,12 +103,22 @@ function AppTableFilters({ handleFilters }: AppTableFiltersProps) {
                 onChange={handleMinDateChange}
                 sx={{ minWidth: "100px" }}
                 label="From date"
+                slotProps={{
+                  textField: {
+                    error: false,
+                  },
+                }}
               />
               <DatePicker
                 value={dayjs(maxDate)}
                 onChange={handleMaxDateChange}
                 sx={{ minWidth: "100px" }}
                 label="To date"
+                slotProps={{
+                  textField: {
+                    error: false,
+                  },
+                }}
               />
             </Box>
           ) : null}
