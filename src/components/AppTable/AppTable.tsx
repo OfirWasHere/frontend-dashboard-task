@@ -1,14 +1,11 @@
 import {
   Box,
-  Button,
   Table,
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TableRow,
   TextField,
-  Typography,
   IconButton,
   TablePagination,
 } from "@mui/material";
@@ -19,6 +16,7 @@ import useIsMobile from "../../hooks/useIsMobile";
 import dayjs, { Dayjs } from "dayjs";
 import { DatePicker } from "@mui/x-date-pickers";
 import AppTableFilters from "./AppTableFilters";
+import AppSpecialTableHead from "./AppSpecialTableHead";
 
 type AppTableProps = {
   tableDataRows: VisitDataModal[] | null;
@@ -127,19 +125,7 @@ function AppTable({
       <Box>
         <TableContainer>
           <Table sx={{ minWidth: isMobile ? "90vw" : "80vw" }}>
-            <TableHead color="primary">
-              <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
-                <TableCell align="center" padding="checkbox">
-                  Delete
-                </TableCell>
-                <TableCell align="center" padding="checkbox">
-                  Edit
-                </TableCell>
-                <TableCell align="right">ID</TableCell>
-                <TableCell align="right">Visits</TableCell>
-                <TableCell align="right">Date</TableCell>
-              </TableRow>
-            </TableHead>
+            <AppSpecialTableHead />
             <TableBody>
               {filteredData && filteredData.length > 0 ? (
                 filteredData
