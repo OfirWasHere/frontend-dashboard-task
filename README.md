@@ -48,8 +48,6 @@ npm install
 npm run serve
 ```
 
-After all of this make sure to refresh the localhost
-
 ### debugging errors:
 if you are getting this error:
 FirebaseError: Installations: Missing App configuration value: "projectId" (installations/missing-app-config-values).

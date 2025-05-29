@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Divider } from "@mui/material";
 import { useEffect, useState } from "react";
 import {
   addVisits,
@@ -100,7 +100,6 @@ function Dashboard() {
     } else if (sortType === "VisitsDown") {
       result = [...filteredData].sort((a, b) => b.visits - a.visits);
     }
-
     if (sortType === "DateUp") {
       result = [...filteredData].sort(
         (a: any, b: any) =>
@@ -136,7 +135,7 @@ function Dashboard() {
           </Box>
         </Box>
         <Box sx={{ mb: 4 }}>
-          <hr color="lightGrey" />
+          <Divider sx={{ my: 2 }} />
         </Box>
         <AppTable
           tableDataRows={filteredData}
@@ -145,7 +144,7 @@ function Dashboard() {
           TableHeadClickedSort={TableHeadClickedSort}
         />
         <Box sx={{ my: 6 }}>
-          <hr color="lightGrey" />
+          <Divider sx={{ my: 2 }} />
         </Box>
         <Box>
           <AppChart visitsData={visits} />
