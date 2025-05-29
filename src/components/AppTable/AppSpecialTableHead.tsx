@@ -28,7 +28,7 @@ function AppSpecialTableHead({
 
         <TableCell
           align="right"
-          onClick={() => TableHeadClickedSort("Visits")}
+          onClick={() => TableHeadClickedSort("Date")}
           sx={{ cursor: "pointer" }}
         >
           Date

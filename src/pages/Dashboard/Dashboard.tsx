@@ -98,6 +98,13 @@ function Dashboard() {
     if (sortType === "Visits") {
       result = [...filteredData].sort((a, b) => a.visits - b.visits);
     }
+
+    if (sortType === "Date") {
+      result = [...filteredData].sort(
+        (a: any, b: any) =>
+          new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
+    }
     setFilteredData(result);
   };
 
