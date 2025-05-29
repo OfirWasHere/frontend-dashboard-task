@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import {
   addVisits,
@@ -7,15 +7,16 @@ import {
   fetchAllVisits,
 } from "../../services/DataService";
 import { VisitDataModal } from "../../utils/types";
-import useAuth from "../../hooks/useAuth";
 import InsertDataForm from "../../components/InsertDataForm/InsertDataForm";
 import useIsMobile from "../../hooks/useIsMobile";
 import AppTable from "../../components/AppTable/AppTable";
 import AppChart from "../../components/AppChart/AppChart";
+import Navbar from "../../components/Navbar/Navbar";
+import AppTableFilters from "../../components/AppTable/AppTableFilters";
 
 function Dashboard() {
   const [visits, setVisits] = useState<VisitDataModal[] | null>(null);
-  const { firebaseLogout } = useAuth();
+  const [filteredData, setFilteredData] = useState<VisitDataModal[]>(visits);
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -27,6 +28,12 @@ function Dashboard() {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (visits) {
+      setFilteredData(visits);
+    }
+  }, [visits]);
 
   const handleDeleteClick = (id: string) => {
     deleteVisits(id);
@@ -58,41 +65,65 @@ function Dashboard() {
     }
   };
 
+  const handleFilters = (
+    maxAmount: number,
+    minAmount: number,
+    mimDate: string,
+    maxDate: string
+  ) => {
+    if (
+      maxAmount === 0 &&
+      minAmount === 0 &&
+      mimDate === "" &&
+      maxDate === ""
+    ) {
+      setFilteredData(visits);
+      return;
+    }
+
+    const result = visits.filter(
+      (item) =>
+        (minAmount === 0 || item.visits > minAmount) &&
+        (maxAmount === 0 || item.visits < maxAmount) &&
+        (mimDate === "" || item.date >= mimDate) &&
+        (maxDate === "" || item.date <= maxDate)
+    );
+
+    setFilteredData(result);
+  };
+
   return (
     <div>
-      <Box m={isMobile ? 0 : 4}>
-        <Button variant="contained" onClick={() => firebaseLogout()}>
-          log out
-        </Button>
-        <Typography variant="h3" textAlign={"center"}>
-          Analytics Dashboard
-        </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: "20px",
-          }}
-        >
-          <AppTable
-            tableDataRows={visits}
-            handleDeleteClick={handleDeleteClick}
-            handleSave={handleSave}
-          />
+      <Navbar title={"Analytics Dashboard"} />
+      <Box m={isMobile ? 0 : 4} sx={{ maxWidth: 1600, mx: "auto", px: 5 }}>
+        <Box>
+          <Box
+            display={"flex"}
+            justifyContent={"space-between"}
+            flexDirection={isMobile ? "column" : "row"}
+            alignItems={isMobile ? "stretch" : "flex-start"}
+            gap={4}
+            my={isMobile ? 2 : 4}
+          >
+            <AppTableFilters handleFilters={handleFilters} />
+            <InsertDataForm
+              headerText="Add new data"
+              submitFormAction={(data) => handleAddVisits(data)}
+            />
+          </Box>
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <InsertDataForm
-            headerText="addVisits"
-            submitFormAction={(data) => handleAddVisits(data)}
-          />
+        <Box sx={{ mb: 4 }}>
+          <hr color="lightGrey" />
         </Box>
-        <Box sx={{ pt: 5 }}>
+        <AppTable
+          tableDataRows={filteredData}
+          handleDeleteClick={handleDeleteClick}
+          handleSave={handleSave}
+        />
+        <Box sx={{ my: 6 }}>
+          <hr color="lightGrey" />
+        </Box>
+        <Box>
           <AppChart visitsData={visits} />
         </Box>
       </Box>

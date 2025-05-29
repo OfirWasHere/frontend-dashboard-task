@@ -1,7 +1,8 @@
-import { FormControl, Typography, Button, TextField } from "@mui/material";
+import { FormControl, Typography, Button, TextField, Box } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
 import React, { useEffect, useState } from "react";
+import useIsMobile from "../../hooks/useIsMobile";
 
 type InsertDataFormProps = {
   submitText?: string;
@@ -15,9 +16,9 @@ function InsertDataForm({
   submitFormAction,
 }: InsertDataFormProps) {
   const today = new Date().toISOString().split("T")[0];
-
   const [visits, setVisits] = useState<number>(0);
   const [selectedDate, setSelectedDate] = useState<string>("");
+  const isMobile = useIsMobile();
 
   function handleDateChange(value: Dayjs | null) {
     if (value) {
@@ -39,10 +40,11 @@ function InsertDataForm({
   };
 
   return (
-    <div>
-      <FormControl>
-        <Typography variant="h6">{headerText}</Typography>
-
+    <FormControl sx={{ mb: isMobile ? 8 : 0 }}>
+      <Typography textAlign={"center"} variant="h6">
+        {headerText}
+      </Typography>
+      <Box sx={{ display: "flex", flexDirection: "row" }}>
         <TextField
           placeholder="Amount"
           type="number"
@@ -58,16 +60,21 @@ function InsertDataForm({
           format="YYYY-MM-DD"
           sx={{ my: 1 }}
         />
+      </Box>
+      <Box display={"flex"}>
         <Button
           disabled={visits === 0}
           onClick={handleSubmit}
+          fullWidth
           sx={{ display: "flex", alignContent: "center", mt: 2 }}
           variant="contained"
         >
-          <Typography variant="h6">{submitText}</Typography>
+          <Typography variant="h6" mt={0}>
+            {submitText}
+          </Typography>
         </Button>
-      </FormControl>
-    </div>
+      </Box>
+    </FormControl>
   );
 }
 

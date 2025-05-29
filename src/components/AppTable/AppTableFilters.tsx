@@ -80,8 +80,8 @@ function AppTableFilters({ handleFilters }: AppTableFiltersProps) {
 
   return (
     <div>
-      <Box>
-        <FormControl sx={{ m: 2, width: isMobile ? 100 : 300 }}>
+      <Box my={isMobile ? 6 : 0}>
+        <FormControl sx={{ mx: 2, width: isMobile ? "90%" : 300 }}>
           <InputLabel>{isMobile ? "filters" : "Select filters"} </InputLabel>
           <Select
             multiple
@@ -103,12 +103,22 @@ function AppTableFilters({ handleFilters }: AppTableFiltersProps) {
                 onChange={handleMinDateChange}
                 sx={{ minWidth: "100px" }}
                 label="From date"
+                slotProps={{
+                  textField: {
+                    error: false,
+                  },
+                }}
               />
               <DatePicker
                 value={dayjs(maxDate)}
                 onChange={handleMaxDateChange}
                 sx={{ minWidth: "100px" }}
                 label="To date"
+                slotProps={{
+                  textField: {
+                    error: false,
+                  },
+                }}
               />
             </Box>
           ) : null}

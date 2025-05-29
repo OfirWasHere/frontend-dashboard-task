@@ -86,6 +86,7 @@ function AppChart({ visitsData, defaultSelection = "weekly" }: AppChartProps) {
           display: "flex",
           justifyContent: "center",
           gap: 2,
+          mb: 6,
         }}
       >
         <Button onClick={() => setFilter("daily")} variant="contained">
