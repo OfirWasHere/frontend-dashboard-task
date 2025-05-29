@@ -1,6 +1,12 @@
 import { TableRow, TableCell, TableHead } from "@mui/material";
 
-function AppSpecialTableHead() {
+type AppSpecialTableHeadProps = {
+  TableHeadClickedSort: (sortType: string) => void;
+};
+
+function AppSpecialTableHead({
+  TableHeadClickedSort,
+}: AppSpecialTableHeadProps) {
   return (
     <TableHead>
       <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
@@ -12,11 +18,19 @@ function AppSpecialTableHead() {
         </TableCell>
         <TableCell align="right">ID</TableCell>
 
-        <TableCell align="right" sx={{ cursor: "pointer" }}>
+        <TableCell
+          align="right"
+          onClick={() => TableHeadClickedSort("Visits")}
+          sx={{ cursor: "pointer" }}
+        >
           Visits
         </TableCell>
 
-        <TableCell align="right" sx={{ cursor: "pointer" }}>
+        <TableCell
+          align="right"
+          onClick={() => TableHeadClickedSort("Visits")}
+          sx={{ cursor: "pointer" }}
+        >
           Date
         </TableCell>
       </TableRow>

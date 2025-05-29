@@ -92,6 +92,15 @@ function Dashboard() {
     setFilteredData(result);
   };
 
+  const TableHeadClickedSort = (sortType: string) => {
+    let result;
+
+    if (sortType === "Visits") {
+      result = [...filteredData].sort((a, b) => a.visits - b.visits);
+    }
+    setFilteredData(result);
+  };
+
   return (
     <div>
       <Navbar title={"Analytics Dashboard"} />
@@ -119,6 +128,7 @@ function Dashboard() {
           tableDataRows={filteredData}
           handleDeleteClick={handleDeleteClick}
           handleSave={handleSave}
+          TableHeadClickedSort={TableHeadClickedSort}
         />
         <Box sx={{ my: 6 }}>
           <hr color="lightGrey" />

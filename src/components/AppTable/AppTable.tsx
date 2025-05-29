@@ -21,12 +21,14 @@ type AppTableProps = {
   tableDataRows: VisitDataModal[] | null;
   handleDeleteClick: (id: string) => void;
   handleSave: (visits: number, date: string, id: string) => void;
+  TableHeadClickedSort: (sortType: string) => void;
 };
 
 function AppTable({
   tableDataRows,
   handleDeleteClick,
   handleSave,
+  TableHeadClickedSort,
 }: AppTableProps) {
   const [editedRow, setEditedRow] = useState<number>(null);
   const [newVisitAmount, setNewVisitAmount] = useState<number>(0);
@@ -89,7 +91,11 @@ function AppTable({
       <Box>
         <TableContainer>
           <Table sx={{ minWidth: isMobile ? "90vw" : "80vw" }}>
-            <AppSpecialTableHead />
+            <AppSpecialTableHead
+              TableHeadClickedSort={(sortType) =>
+                TableHeadClickedSort(sortType)
+              }
+            />
             <TableBody>
               {tableDataRows && tableDataRows.length > 0 ? (
                 tableDataRows
