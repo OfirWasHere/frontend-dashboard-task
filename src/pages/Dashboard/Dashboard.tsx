@@ -95,14 +95,21 @@ function Dashboard() {
   const TableHeadClickedSort = (sortType: string) => {
     let result;
 
-    if (sortType === "Visits") {
+    if (sortType === "VisitsUp") {
       result = [...filteredData].sort((a, b) => a.visits - b.visits);
+    } else if (sortType === "VisitsDown") {
+      result = [...filteredData].sort((a, b) => b.visits - a.visits);
     }
 
-    if (sortType === "Date") {
+    if (sortType === "DateUp") {
       result = [...filteredData].sort(
         (a: any, b: any) =>
           new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
+    } else if (sortType === "DateDown") {
+      result = [...filteredData].sort(
+        (a: any, b: any) =>
+          new Date(a.date).getTime() - new Date(b.date).getTime()
       );
     }
     setFilteredData(result);
