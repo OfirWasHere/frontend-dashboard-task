@@ -17,14 +17,20 @@ function Login() {
   const [password, setPassword] = useState("");
   const [pageStep, setPageStep] = useState<number>(0);
   const [showPassword, setShowPassword] = useState(false);
+  const [errorText, setErrorText] = useState<string | null>("");
   const { firebaseLogin, firebaseSignUp, firebaseGoogleAuthLogin } = useAuth();
 
-  const submitDetails = () => {
-    // TODO: Add validation for email and password with errors
+  const submitDetails = async () => {
+    // TODO: Add validation for email and password with proper errors
+    let response;
     if (pageStep === 0) {
-      firebaseLogin({ email, password });
+      response = await firebaseLogin({ email, password });
+      setErrorText(response);
+      return;
     } else if (pageStep === 1) {
-      firebaseSignUp({ email, password });
+      response = await firebaseSignUp({ email, password });
+      setErrorText(response);
+      return;
     }
   };
 
@@ -53,22 +59,30 @@ function Login() {
             {pageStep === 1 ? "Signup" : "Login"}
           </Typography>
           <TextField
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setErrorText("");
+            }}
             value={email}
             label="Email"
             type="email"
             variant="outlined"
             fullWidth
             margin="normal"
+            error={errorText.length > 0}
           />
           <TextField
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setErrorText("");
+            }}
             value={password}
             label="Password"
             type={showPassword ? "text" : "password"}
             variant="outlined"
             fullWidth
             margin="normal"
+            error={errorText.length > 0}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -79,6 +93,7 @@ function Login() {
               ),
             }}
           />
+          <Typography color="error">{errorText}</Typography>
           <Typography variant="body1" sx={{ pb: 2 }}>
             {pageStep === 1 ? "Have an account?," : "Not Registered?,"}
             <Button

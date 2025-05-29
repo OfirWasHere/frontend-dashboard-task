@@ -25,6 +25,7 @@ export default function useAuth() {
             if (error instanceof FirebaseError) {
                 console.error("Sign-up failed:", error);
             }
+            return "Email or password are wrong"
         } finally {
             setLoader(false);
         }
