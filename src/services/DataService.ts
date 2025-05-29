@@ -1,6 +1,6 @@
 import { VisitDataModal } from "../utils/types";
 
-const API = "http://127.0.0.1:5001/fullstack-home-task/us-central1/"
+const API = "https://fullstack-home-task.web.app/us-central1/"
 
 // GET
 async function fetchAllVisits(): Promise<VisitDataModal[]> {
