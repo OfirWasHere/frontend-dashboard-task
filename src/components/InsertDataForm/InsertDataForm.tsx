@@ -37,6 +37,7 @@ function InsertDataForm({
       date: dateToUse,
     };
     submitFormAction?.(payload);
+    setVisits(0);
   };
 
   return (
