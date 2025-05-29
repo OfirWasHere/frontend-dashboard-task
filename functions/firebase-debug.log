@@ -6384,3 +6384,66 @@ Issues? Report them at https://github.com/firebase/firebase-tools/issues and att
 [debug] [2025-05-29T01:44:49.033Z] [worker-us-central1-getAllVisits-a7d8416b-6379-4b30-9d77-ee18143c2224]: FINISHED {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getAllVisits"},"extension":{},"message":"[worker-us-central1-getAllVisits-a7d8416b-6379-4b30-9d77-ee18143c2224]: FINISHED"}}
 [debug] [2025-05-29T01:44:49.034Z] [worker-us-central1-getAllVisits-d4471448-b9c9-40cd-8e64-c297f885c28b]: exited {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getAllVisits"},"extension":{},"message":"[worker-us-central1-getAllVisits-d4471448-b9c9-40cd-8e64-c297f885c28b]: exited"}}
 [debug] [2025-05-29T01:44:49.034Z] [worker-us-central1-getAllVisits-d4471448-b9c9-40cd-8e64-c297f885c28b]: FINISHED {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-getAllVisits"},"extension":{},"message":"[worker-us-central1-getAllVisits-d4471448-b9c9-40cd-8e64-c297f885c28b]: FINISHED"}}
+[debug] [2025-05-29T02:04:34.029Z] ----------------------------------------------------------------------
+[debug] [2025-05-29T02:04:34.031Z] Command:       D:\node.js\node.exe C:\Users\Ofir\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start --only functions
+[debug] [2025-05-29T02:04:34.031Z] CLI Version:   14.4.0
+[debug] [2025-05-29T02:04:34.031Z] Platform:      win32
+[debug] [2025-05-29T02:04:34.031Z] Node Version:  v22.16.0
+[debug] [2025-05-29T02:04:34.031Z] Time:          Thu May 29 2025 05:04:34 GMT+0300 (שעון ישראל (קיץ))
+[debug] [2025-05-29T02:04:34.031Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-05-29T02:04:34.168Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-05-29T02:04:34.168Z] > authorizing via signed-in user (ofirdoron19@gmail.com)
+[info] i  emulators: Starting emulators: functions {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: functions"}}
+[debug] [2025-05-29T02:04:34.174Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-05-29T02:04:34.174Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2025-05-29T02:04:34.176Z] [hub] writing locator at C:\Users\Ofir\AppData\Local\Temp\hub-fullstack-home-task.json
+[debug] [2025-05-29T02:04:34.186Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-05-29T02:04:34.186Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-05-29T02:04:34.186Z] [tasks] Cloud Tasks Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-05-29T02:04:34.186Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}],"tasks":[{"address":"127.0.0.1","family":"IPv4","port":9499}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[warn] !  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: apphosting, auth, firestore, database, hosting, pubsub, storage, dataconnect {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mapphosting, auth, firestore, database, hosting, pubsub, storage, dataconnect\u001b[22m"}}
+[debug] [2025-05-29T02:04:34.199Z] defaultcredentials: writing to file C:\Users\Ofir\AppData\Roaming\firebase\ofirdoron19_gmail_com_application_default_credentials.json
+[debug] [2025-05-29T02:04:34.200Z] Setting GAC to C:\Users\Ofir\AppData\Roaming\firebase\ofirdoron19_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\Ofir\\AppData\\Roaming\\firebase\\ofirdoron19_gmail_com_application_default_credentials.json"}}
+[debug] [2025-05-29T02:04:34.200Z] Checked if tokens are valid: false, expires at: 1748482679428
+[debug] [2025-05-29T02:04:34.200Z] Checked if tokens are valid: false, expires at: 1748482679428
+[debug] [2025-05-29T02:04:34.200Z] > refreshing access token with scopes: []
+[debug] [2025-05-29T02:04:34.201Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-05-29T02:04:34.201Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-05-29T02:04:34.352Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-05-29T02:04:34.352Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-05-29T02:04:34.362Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/fullstack-home-task/adminSdkConfig [none]
+[debug] [2025-05-29T02:04:34.688Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/fullstack-home-task/adminSdkConfig 200
+[debug] [2025-05-29T02:04:34.688Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/fullstack-home-task/adminSdkConfig {"projectId":"fullstack-home-task","storageBucket":"fullstack-home-task.firebasestorage.app"}
+[info] i  functions: Watching "D:\visual studio projects\2025\fullstack home task\clone\frontend-dashboard-task\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"D:\\visual studio projects\\2025\\fullstack home task\\clone\\frontend-dashboard-task\\functions\" for Cloud Functions..."}}
+[debug] [2025-05-29T02:04:34.705Z] Validating nodejs source
+[debug] [2025-05-29T02:04:35.306Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "22"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "firebase-admin": "^12.7.0",
+    "firebase-functions": "^6.0.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^4.9.0"
+  },
+  "private": true
+}
+[debug] [2025-05-29T02:04:35.306Z] Building nodejs source
+[debug] [2025-05-29T02:04:35.307Z] Failed to find version of module node: reached end of search path D:\visual studio projects\2025\fullstack home task\clone\frontend-dashboard-task\functions\node_modules
+[info] +  functions: Using node@22 from host. 
+[debug] [2025-05-29T02:04:35.308Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-05-29T02:04:35.312Z] Found firebase-functions binary at 'D:\visual studio projects\2025\fullstack home task\clone\frontend-dashboard-task\functions\node_modules\.bin\firebase-functions'

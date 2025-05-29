@@ -90,7 +90,7 @@ function AppTable({
     <div>
       <Box>
         <TableContainer>
-          <Table sx={{ minWidth: isMobile ? "90vw" : "80vw" }}>
+          <Table sx={{ minWidth: isMobile ? "90vw" : "50vw" }}>
             <AppSpecialTableHead
               TableHeadClickedSort={(sortType) =>
                 TableHeadClickedSort(sortType)
