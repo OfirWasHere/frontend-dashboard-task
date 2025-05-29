@@ -84,39 +84,9 @@ function AppTable({
     setPage(0);
   };
 
-  // const handleFilters = (
-  //   maxAmount: number,
-  //   minAmount: number,
-  //   mimDate: string,
-  //   maxDate: string
-  // ) => {
-  //   if (
-  //     maxAmount === 0 &&
-  //     minAmount === 0 &&
-  //     mimDate === "" &&
-  //     maxDate === ""
-  //   ) {
-  //     setFilteredData(tableDataRows);
-  //     return;
-  //   }
-
-  //   const result = tableDataRows.filter(
-  //     (item) =>
-  //       (minAmount === 0 || item.visits > minAmount) &&
-  //       (maxAmount === 0 || item.visits < maxAmount) &&
-  //       (mimDate === "" || item.date >= mimDate) &&
-  //       (maxDate === "" || item.date <= maxDate)
-  //   );
-
-  //   setFilteredData(result);
-  // };
-
   return (
     <div>
       <Box>
-        {/* <Box display={"flex"} alignItems={"center"}>
-          <AppTableFilters handleFilters={handleFilters} />
-        </Box> */}
         <TableContainer>
           <Table sx={{ minWidth: isMobile ? "90vw" : "80vw" }}>
             <AppSpecialTableHead />
