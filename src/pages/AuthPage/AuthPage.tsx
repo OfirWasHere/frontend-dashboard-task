@@ -11,6 +11,7 @@ import React, { useState } from "react";
 import GoogleIcon from "@mui/icons-material/Google";
 import useAuth from "../../hooks/useAuth";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
+import useIsMobile from "../../hooks/useIsMobile";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -19,7 +20,7 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [errorText, setErrorText] = useState<string | null>("");
   const { firebaseLogin, firebaseSignUp, firebaseGoogleAuthLogin } = useAuth();
-
+  const isMobile = useIsMobile();
   const submitDetails = async () => {
     // TODO: Add validation for email and password with proper errors
     let response;
@@ -44,12 +45,21 @@ function Login() {
 
   return (
     <div>
-      <Box height={"80vh"} display="flex" alignItems="center">
+      <Box
+        sx={{
+          height: "100vh",
+          background: "linear-gradient(to right, #52357B, #5459AC)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          p: 2,
+        }}
+      >
         <Box
           sx={{
-            maxWidth: 400,
+            height: isMobile ? "60vh" : "auto",
             margin: "auto",
-            padding: 2,
+            padding: 5,
             backgroundColor: "#f5f5f5",
             boxShadow: 3,
             borderRadius: 2,
