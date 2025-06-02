@@ -4,7 +4,7 @@ import { onRequest } from "firebase-functions/https";
 
 const { initializeApp } = require("firebase-admin/app");
 const { getFirestore } = require("firebase-admin/firestore");
-const cors = require("cors")({ origin: true });
+const cors = require("cors")({ origin: '*' });
 
 initializeApp();
 const db = getFirestore();
@@ -79,3 +79,4 @@ export const editVisits = onRequest((req, res) => {
         }
     });
 });
+

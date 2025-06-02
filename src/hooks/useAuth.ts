@@ -13,7 +13,6 @@ export default function useAuth() {
     const navigate = useNavigate();
     const location = useLocation();
 
-
     async function firebaseLogin({ email, password }: LoginServiceModal): Promise<string | null> {
         setLoader(true);
         try {

@@ -1,6 +1,5 @@
 import { VisitDataModal } from "../utils/types";
-
-const API = "https://us-central1-fullstack-home-task.cloudfunctions.net/";
+const API = process.env.NODE_ENV === "development" ? "http://127.0.0.1:5001/fullstack-home-task/us-central1/" : "https://us-central1-fullstack-home-task.cloudfunctions.net/"
 
 // GET
 async function fetchAllVisits(): Promise<VisitDataModal[]> {
@@ -33,6 +32,7 @@ async function addVisits(payload: VisitDataModal) {
         console.error('Error calling Firebase function:', error);
     }
 }
+
 // DELETE
 async function deleteVisits(id: string) {
     try {
@@ -47,6 +47,7 @@ async function deleteVisits(id: string) {
         console.error('Error calling Firebase function:', error);
     }
 }
+
 // PUT 
 async function editVisits(payload: VisitDataModal) {
     try {
